@@ -1,2 +1,2 @@
 #!/bin/bash
-printf "%2s" a{a..z}|head -32
+printf "%2s\n" a{a..z}|head -32
