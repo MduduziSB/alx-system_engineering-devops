@@ -2,10 +2,10 @@
 # script that displays numbers from 1 to 100
 for ((num=1; num<101; num++))
 do
-	if [ $((num % 3)) == 0 ]
+	if (( $((num % 3)) == 0 && $((num%5)) != 0 ))
 	then
 		echo "Fizz"
-	elif [ $((num % 5)) == 0 ]
+	elif (( $((num % 3)) != 0 && $((num%5)) == 0 ))
 	then
 		echo "Buzz"
 	elif (( $((num % 3)) == 0 && $((num%5)) == 0 ))
