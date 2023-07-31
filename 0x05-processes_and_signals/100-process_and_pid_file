@@ -12,15 +12,14 @@ cleanup()
 	exit
 }
 
-trap 'cleanup' SIGQUIT SIGTERM
-
-trap "echo Y U no love me?!" SIGINT
-
-trap "echo I hate the kill command" SIGTERM
-
+# echoes pid to the file
 echo $$ > "$pid_file"
 
 while true
 do
 	echo "To infinity and beyond"
+	sleep 2
+	trap "echo I hate the kill command && cleanup" SIGTERM
+	trap "cleanup" SIGQUIT
+	trap "echo Y U no love me?!" SIGINT
 done
