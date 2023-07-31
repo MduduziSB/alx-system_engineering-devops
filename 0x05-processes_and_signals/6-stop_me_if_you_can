@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
 # The scriptSTOPS "To infinity and beyond" process
-pid=$(pgrep -x "4-to_infinity_and_beyond")
-if [[ -n "$pid" && "$pid" =~ ^[0-9]+$ ]]
-then
-	pkill -TERM -P "$pid"
-fi
+pkill -9 4-to_infinity_and_beyond
