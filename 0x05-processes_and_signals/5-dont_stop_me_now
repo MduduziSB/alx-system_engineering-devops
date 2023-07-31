@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 # The script displays "To infinity and beyond" indefinitely
 pid=$(pgrep -x "4-to_infinity_and_beyond")
-kill "$pid"
+if [[ -n "$pid" && "$pid" =~ ^[0-9]+$ ]]
+then
+	kill "$pid"
+fi
