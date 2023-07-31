@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# The script displays the PID, along with the process name
+# whose name contain the word bash
+
+for pid_dir in /proc/*/
+do
+	pid=$(basename "$pid_dir")
+	if [[ $pid =~ ^[0-9]+$ ]]
+	then
+		process_name=$(grep -s -E '^Name:' "$pid_dir/status" | awk '{print $2}')
+		if [[ $process_name == *"bash"* ]]
+		then
+			echo "$pid $process_name"
+		fi
+	fi
+done
