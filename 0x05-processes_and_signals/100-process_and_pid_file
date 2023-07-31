@@ -8,7 +8,6 @@ pid_file="/var/run/myscript.pid"
 
 cleanup()
 {
-	trap "echo I hate the kill command" SIGTERM
 	rm -f "$pid_file"
 	exit
 }
@@ -16,6 +15,8 @@ cleanup()
 trap 'cleanup' SIGQUIT SIGTERM
 
 trap "echo Y U no love me?!" SIGINT
+
+trap "echo I hate the kill command" SIGTERM
 
 echo $$ > "$pid_file"
 
