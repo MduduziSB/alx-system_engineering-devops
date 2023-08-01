@@ -1,10 +1,6 @@
 #!/usr/bin/env ruby
 # Regular expression matching method
-
-input_string = ARGV[0]
-
-def regex_match(input)
-  reg = /hbt{2,5}n/
-  input.match reg
+if ARGV.empty?
+  exit 1
 end
-regex_match(input_string)
+puts ARGV[0].scan(/hbt{1,5}n/).join
