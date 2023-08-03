@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # The script displays all active IPv4 IPs on the machine it’s executed on
 
 # Check if the script is being run with superuser privileges
