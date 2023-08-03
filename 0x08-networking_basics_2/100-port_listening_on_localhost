@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# The script that listens on port 98 on localhost
+
+cleanup()
+{
+	pid=$(ps -ef | grep "[n]c -l 127.0.0.1 98" | awk '{print $2}')
+	if [[ -n "$pid" ]]
+	then
+		kill "$pid"
+	fi
+}
+
+trap cleanup INT
+nc -l 127.0.0.1 98

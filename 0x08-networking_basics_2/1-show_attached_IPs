@@ -1,0 +1,12 @@
+#!/bin/bash
+# The script displays all active IPv4 IPs on the machine it’s executed on
+
+# Check if the script is being run with superuser privileges
+if [ "$EUID" -ne 0 ]
+then
+	exit 1
+fi
+
+ipv4_addresses=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | awk '{print $2}')
+
+echo "$ipv4_addresses"
