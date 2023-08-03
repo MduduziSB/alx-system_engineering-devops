@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# The script displays listening ports
+# shows the PID and name of the program to which each socket belongs
+netstat -natup | less
