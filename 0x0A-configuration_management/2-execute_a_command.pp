@@ -1,6 +1,6 @@
 #The code creates a manifest that kills a process named killmenow
-exec { 'kill_killmenow_process':
-  command     => 'pkill killmenow',
-  onlyif      => 'pgrep killmenow',
-  refreshonly => true,
+exec { 'killmenow':
+  command	=> '/usr/bin/pkill killmenow',
+  provider	=> 'shell',
+  returns	=> [0, 1],
 }
