@@ -3,6 +3,6 @@
 
 $cont = '\n    IdentityFile ~/.ssh/school\n    PasswordAuthentication no'
 exec { 'ssh_config':
-  path   => '/usr/bin',
-  ensure => "echo '${cont}' >> /etc/ssh/ssh_config",
+  path    => '/usr/bin',
+  command => "echo '${cont}' >> /etc/ssh/ssh_config",
 }
