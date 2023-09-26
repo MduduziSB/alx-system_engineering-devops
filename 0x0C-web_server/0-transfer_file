@@ -16,4 +16,4 @@ ssh_key="$4"
 SCP_OPTIONS="-o StrictHostKeyChecking=no"
 
 # Transfer the file using scp
-scp $SCP_OPTIONS -i "$ssh_key" "$file_to_transfer" "$username@$server_ip:~/"
+scp "$SCP_OPTIONS" -i "$ssh_key" "$file_to_transfer" "$username@$server_ip:~/"
