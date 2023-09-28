@@ -3,18 +3,8 @@
 
 ssh ubuntu@52.3.220.70
 
-# Check if the script is being run as root
-if [[ $EUID -ne 0 ]]; then
-    exit 1
-fi
-
-sudo apt-get update
-sudo apt-get install -y nginx
-
-# Create a basic HTML file with "Hello World!" content
+sudo apt-get -y update
+sudo apt-get -y install nginx
 sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
-
-# Check if Nginx is already running and start it if not
-if ! pgrep -x nginx > /dev/null; then
-    nginx
-fi
+sudo nginx -s reload
+sudo service nginx start
