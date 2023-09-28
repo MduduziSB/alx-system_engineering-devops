@@ -1,19 +1,12 @@
 #!/usr/bin/env bash
+# transfers a file from our client to a server
 
-# Check if the script is called with the correct number of parameters
-if [ "$#" -ne 4 ]; then
-  echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
-  exit 1
+less_than_three="Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+
+if [ "$4" ]; then
+   scp -i "$4" -o StrictHostKeyChecking=no "$1" "$3@$2:~"
+elif [ "$3" ]; then
+     scp -o StrictHostKeyChecking=no "$1" "$3@$2~"
+else
+	echo "$less_than_three";
 fi
-
-# Assign parameters to variables
-file_to_transfer="$1"
-server_ip="$2"
-username="$3"
-ssh_key="$4"
-
-# Disable strict host key checking
-SCP_OPTIONS="-o StrictHostKeyChecking=no"
-
-# Transfer the file using scp
-scp "$SCP_OPTIONS" -i "$ssh_key" "$file_to_transfer" "$username@$server_ip:~/"
