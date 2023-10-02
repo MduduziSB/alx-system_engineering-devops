@@ -1,39 +1,16 @@
 #!/usr/bin/env bash
-# This script configures sweb-02 to be identical to web-01
+# This script configures web-02 to be identical to web-01
+# shellcheck disable=SC2154
 
-sudo apt-get -y update
-sudo apt-get -y install nginx
+sudo apt-get update
+sudo apt-get install nginx -y
 sudo ufw allow 'Nginx HTTP'
-sudo mkdir -p /var/www/html /var/www/error
-sudo chmod -R 755 /var/www
-echo 'Hello World!' > /var/www/html/index.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
-
-server_config=\
-"server {
-		listen 80 default_server;
-		listen [::]:80 default_server;
-		root /var/www/html;
-		index index.html index.htm index.nginx-debian.html
-		server_name_;
-		add_header X-Served-By \$hostname;
-		location / {
-			try_files \$uri \$uri/ =404;
-		}
-		if (\$request_filename ~ redirect_me){
-			rewrite ^ https://th3-gr00t.tk/ permanent;
-		}
-		error_page 404 /error_404.html;
-		location = /error_404.html {
-			internal;
-		}
-}"
-
-#shellcheck disable=SC2154
-echo "$server_config" | sudo dd status=none of=/etc/nginx/sites-enabled/default
-
-if [ "$(pgrep -c nginx)" -le 0 ]; then
-	sudo service nginx start
-else
-	sudo service nginx restart
-fi
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+var1="listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/www.youtube.com\/;\\n\\t}"
+sudo sed -i "s/listen 80 default_server;/$var1/" /etc/nginx/sites-enabled/default
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404.html
+var1="listen 80 default_server;\\nerror_page 404 \/404.html;\\n\\tlocation = \/404.html {\\n\\t\\troot \/usr\/share\/nginx\/html;\\n\\t\\tinternal;\\n\\t}"
+sudo sed -i "s/listen 80 default_server;/$var1/" /etc/nginx/sites-enabled/default
+var2="http {\\n\\tadd_header X-Served-By \"$HOSTNAME\";"
+sudo sed -i "s/http {/$var2/" /etc/nginx/nginx.conf
+sudo service nginx start
