@@ -2,52 +2,12 @@
 # Thuis script Installs and configures HAproxy on your lb-01 server.
 
 
-echo -e "Updating and doing some minor checks...\n"
+CONFGF="\\\nlisten appname 0.0.0.0:80\n\tmode http\n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver 275247-web-01 52.3.220.70 check\n\tserver 275247-web-02 54.159.2.25 check\n"
 
-function install() {
-	command -v "$1" &> /dev/null
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo apt-get install -y haproxy
+sudo sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
+sudo sed -i "\$a $CONFGF" /etc/haproxy/haproxy.cfg
 
-	if [ $? -ne 0 ]; then
-		echo -e "	Installing: $1\n"
-		sudo apt-get update -y -qq && \
-			sudo apt-get install -y "$1" -qq
-		echo -e "\n"
-	else
-		echo -e "	${1} is already installed.\n"
-	fi
-}
-
-install haproxy
-
-echo -e "\nSetting up some minor stuff.\n"
-
-sudo cp /etc/haproxy/haproxy.cfg haproxy_default.backup
-
-server_config=\
-"
-defaults
-  mode http
-  timeout client 20s
-  timeout connect 15s
-  timeout server 20s
-  timeout http-request 15s
-
-frontend clickviral-tech-frontend
-    bind *:80
-    default_backend clickviral-tech-backend
-
-backend clickviral-tech-backend
-    balance roundrobin
-    server 275247-web-01 52.3.220.70:80 check
-    server 275247-web-02 54.159.2.25:80 check
-"
-
-echo "$server_config" | sudo dd status=none of=/etc/haproxy/haproxy.cfg
-
-echo "ENABLED=1" | sudo dd status=none of=/etc/default/haproxy
-
-if [ "$(pgrep -c haproxy)" -le 0 ]; then
-	sudo service haproxy start
-else
-	sudo service haproxy restart
-fi
+sudo service haproxy start
