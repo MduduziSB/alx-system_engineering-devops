@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 # Thuis script Installs and configures HAproxy on your lb-01 server.
 
-
 sudo apt-get -y update
 sudo apt-get -y install haproxy
 
-sudo cp -a /etc/haproxy/haproxy.cfg{,.orig}
-sudo chmod 666 /etc/haproxy/haproxy.cfg
 echo "\
 frontend haproxy_balancer
     bind *:80
