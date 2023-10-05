@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # Script to fix Nginx server configuration
 sed -i "s/8080/80/g" /etc/nginx/sites-enabled/default
-systemctl restart nginx
+service nginx start
 kill -9 "$(cat /run/nginx.pid)"
