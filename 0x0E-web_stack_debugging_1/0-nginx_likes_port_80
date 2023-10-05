@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Script for managing Nginx configuration
+
+# Move the configuration file from sites-available to sites-enabled
+sites_available="/etc/nginx/sites-available/default"
+
+# Copy the configuration file back to sites-available
+sites_enabled="/etc/nginx/sites-enabled/default"
+
+mv "$sites_available" "$sites_enabled"
+cp "$sites_enabled" "$sites_available"
+
+service nginx stop
+pkill nginx
+service nginx start
