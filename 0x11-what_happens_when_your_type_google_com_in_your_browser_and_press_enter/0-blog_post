@@ -1,0 +1,33 @@
+Have you ever wondered what happens when you type https://www.google.com in your browser and press Enter? This may seem like a trivial action,  but beneath the surface, a complex and fascinating journey unfolds. This post covers everything that happens under the hood when you perfom this action.
+
+1. DNS Request (Domain Name System):
+
+The first step is to acquire an IP address of "www.google.com." . Hence, the browser sends a request to a DNS server, which translates the human-readable domain name into an IP address that computers understand.
+
+2. TCP/IP (Transmission Control Protocol/Internet Protocol):
+
+With the IP address in hand, the browser establishes a TCP/IP connection to the server hosting Google's website. This is the foundational protocol for data transmission on the internet, ensuring packets of data are reliably sent and received.
+
+3. Firewall:
+
+The request pass through a firewall for security reasons prior to reaching Google's servers . Firewalls filter and monitor incoming and outgoing traffic to protect against malicious activities.
+
+4. HTTPS/SSL (Hypertext Transfer Protocol Secure/Secure Sockets Layer):
+
+To ensure data is encryption and security, your browser and the web server initiate a secure connection using HTTPS. SSL certificates verify the authenticity of the website, ensuring you're connecting to the real Google and not a malicious imposter.
+
+5. Load-Balancer:
+
+Google receives a vast amount of web traffic daily. To distribute this load and ensure that your request doesn't overwhelm a single server, a load balancer is used. It directs your request to an available server in a server farm.
+
+6. Web Server:
+
+After the request has reached the web server, it processes it and fetches the Google homepage. Web servers handle HTTP requests, fetch content, and send it back to your browser.
+
+7. Application Server:
+
+The application server plays a vital role in handling dynamic content. In Google's case, it could be responsible for generating personalized search results, ads, or other dynamic elements on the page.
+
+8. Database:
+
+In the final step, the application server may need to retrieve data from databases, such as user preferences, search history, or cached information. The information is then incorporated into the web page you see on your screen.
