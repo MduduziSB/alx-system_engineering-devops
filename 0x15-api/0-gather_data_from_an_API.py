@@ -8,7 +8,7 @@ import sys
 
 base_url = "https://jsonplaceholder.typicode.com"
 
-if "__name__" == "__main__":
+if __name__ == "__main__":
 
     employee_id = sys.argv[1]
     user_url = "https://jsonplaceholder.typicode.com"
