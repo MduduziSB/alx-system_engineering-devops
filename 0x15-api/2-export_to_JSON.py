@@ -16,17 +16,18 @@ if __name__ == "__main__":
     tasks_data = tasks_response.text
     tasks = json.loads(tasks_data)
 
-    dic = {str(employee_id): []}
+    dic = {}
+    task_list = []
 
     for task in tasks:
         json_data = {
                      "task": task['title'],
                      "completed": task['completed'],
                      "username": name}
+        task_list.append(json_data)
 
-        dic[str(employee_id)].append(json_data)
+    dic[employee_id] = task_list
 
-    encoded_data = json.dumps(dic)
     filename = employee_id + '.json'
     with open(filename, mode='w') as File:
-        File.write(encoded_data)
+        json.dump(dic, File)
