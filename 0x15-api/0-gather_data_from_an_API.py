@@ -11,10 +11,10 @@ base_url = "https://jsonplaceholder.typicode.com"
 if "__name__" == "__main__":
 
     employee_id = sys.argv[1]
-    user_response = requests.get(f"{base_url}/users/{employee_id}")
-    user_data = user_response.json()
-    name = user_data["name"]
-    tasks_response = requests.get(f"{base_url}/todos?userId={employee_id}")
+    user_url = "https://jsonplaceholder.typicode.com"
+    user_response = requests.get(f"{user_url}/users/{employee_id}")
+    name = user_response.json().get("name")
+    tasks_response = requests.get(f"{user_url}/todos?userId={employee_id}")
     tasks_data = tasks_response.json()
 
     # Count completed tasks and total tasks
