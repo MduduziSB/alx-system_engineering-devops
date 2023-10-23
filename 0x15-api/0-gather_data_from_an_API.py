@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """script returns information about his/her TODO list progress"""
 
+import json
 import requests
 import sys
-import json
 
 
 base_url = "https://jsonplaceholder.typicode.com"
