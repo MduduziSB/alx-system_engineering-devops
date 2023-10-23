@@ -14,9 +14,9 @@ if __name__ == "__main__":
     todos = todos.json()
 
     todo_dic = {}
-    task_list = []
 
     for idx in user_url:
+        task_list = []
         for task in todos:
             if task.get('userId') == idx.get('id'):
                 json_data = {
