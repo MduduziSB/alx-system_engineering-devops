@@ -4,8 +4,7 @@ exec { 'fix-limits':
   path    => '/usr/local/bin/:/bin/',
 }
 
-exec { 'nginx_restart':
-  command     => '/etc/init.d/nginx restart',
-  refreshonly => true,
-  subscribe   => File['/etc/nginx/nginx.conf'],
+exec { 'restart nginx':
+  provider => shell,
+  command  => 'service nginx restart'
 }
